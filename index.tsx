@@ -1,6 +1,6 @@
 type actionFn<T> = (args, rootState, callback: (err: Error | null, state?: T) => void, dispatch?) => void
 
-default export function model<T> (
+export default function model<T> (
   defaultState: T,
   actions: {
     [key: string]: actionFn<T>
