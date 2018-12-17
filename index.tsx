@@ -1,10 +1,14 @@
-type actionFn<T> = (args, rootState, callback: (err: Error | null, state?: T) => void, dispatch?) => void
+type ActionsMap<T> = {
+  [key: string]: (args, rootState, callback: (err: Error | null, state?: T) => void) => void
+}
+
+type EffectsMap<T> = {
+  [key: string]: (args, rootState) => Promise<T>
+}
 
 export default function model<T> (
   defaultState: T,
-  actions: {
-    [key: string]: actionFn<T>
-  }
+  actions: ActionsMap<T>
 ) {
   const initialState = {
     loading: false,
@@ -14,35 +18,31 @@ export default function model<T> (
   }
   type State = typeof initialState
 
-  function bindActions (dispatch) {
-    const bound = {}
-    for (let key in actions) {
-      const f = actions[key]
+  const effects: EffectsMap<T> = {}
+  for (let key in actions) {
+    const f = actions[key]
 
-      bound[key] = function (args, rootState) {
-        const self = this as any
+    effects[key] = function (args, rootState) {
+      const self = this as any
 
-        return new Promise((resolve, reject) => {
-          self.start()
-          f(args, rootState, (err, result) => {
-            if (err) {
-              reject(err)
-              return self.end(err)
-            }
+      return new Promise((resolve, reject) => {
+        self.start()
+        f(args, rootState, (err, result) => {
+          if (err) {
+            reject(err)
+            return self.end(err)
+          }
 
-            resolve(result)
-            self.end(null, result)
-          }, dispatch)
+          resolve(result)
+          self.end(null, result)
         })
-      }
+      })
     }
-
-    return bound
   }
 
   return {
     state: initialState,
-    effects: bindActions,
+    effects,
     reducers: {
       start (state: State): State {
         return {
