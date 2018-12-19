@@ -47,8 +47,8 @@ function mapState (state) {
 }
 
 function mapDispatch (dispatch) {
-  fetchItem: (itemId) {
-    dispatch.todo.get(itemId)
+  fetchItem: async (itemId) {
+    await dispatch.todo.get(itemId)
   }
 }
 ```
