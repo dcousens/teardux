@@ -52,3 +52,5 @@ function mapDispatch (dispatch) {
   }
 }
 ```
+
+## LICENSE [MIT](LICENSE)
