@@ -8,13 +8,13 @@
 ``` typescript
 import teardux from 'teardux'
 
-interface Item {
+type Item = {
   title: string
   text: string
   complete: bool
 }
 
-const DEFAULT_ITEM = {
+const DEFAULT_ITEM: Item = {
   title: '',
   text: '',
   complete: false
