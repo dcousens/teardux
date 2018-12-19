@@ -29,12 +29,12 @@ export default function model<T> (
         self.start()
         f(args, rootState, (err, result) => {
           if (err) {
-            reject(err)
-            return self.end(err)
+            self.end(err)
+            return reject(err)
           }
 
-          resolve(result)
           self.end(null, result)
+          resolve(result)
         })
       })
     }
