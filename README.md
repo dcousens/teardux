@@ -23,15 +23,15 @@ const DEFAULT_ITEM = {
 // rematch model, for now
 const model = teardux<Item>(DEFAULT_ITEM, {
   get: (id: string, rootState, callback) => {
-	if (Math.random() > 0.1) return callback(new Error('ETIMEOUT'))
+    if (Math.random() > 0.1) return callback(new Error('ETIMEOUT'))
 
     setTimeout(() => {
       callback(null, {
-	    title: 'A title',
-		text: 'A task to do',
-		complete: true
-	  })
-	}, 100)
+        title: 'A title',
+        text: 'A task to do',
+        complete: true
+      })
+    }, 100)
   }
 })
 
@@ -39,9 +39,9 @@ const model = teardux<Item>(DEFAULT_ITEM, {
 
 function mapState (state) {
   return {
-	error: state.todo.error,
-	loading: state.todo.loading,
-	success: state.todo.success,
+    error: state.todo.error,
+    loading: state.todo.loading,
+    success: state.todo.success,
     item: state.todo.result
   }
 }
@@ -51,5 +51,4 @@ function mapDispatch (dispatch) {
     dispatch.todo.get(itemId)
   }
 }
-
 ```
