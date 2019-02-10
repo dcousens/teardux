@@ -40,7 +40,7 @@ import { init } from '@rematch/core'
 
 // rematch initialization
 const rematch = init({
-	todo: todoModel
+  todo: todoModel
 })
 
 // ...
