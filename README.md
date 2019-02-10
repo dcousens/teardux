@@ -8,20 +8,20 @@
 ``` typescript
 import teardux from 'teardux'
 
-type Item = {
+type TodoItem = {
   title: string
   text: string
   complete: bool
 }
 
-const DEFAULT_ITEM: Item = {
+const DEFAULT_TODO_ITEM: TodoItem = {
   title: '',
   text: '',
   complete: false
 }
 
-// rematch model, for now
-const model = teardux<Item>(DEFAULT_ITEM, {
+// WARNING: returns a rematch model, may change in near future
+const todoModel = teardux<TodoItem>(DEFAULT_TODO_ITEM, {
   get: (id: string, rootState, callback) => {
     if (Math.random() > 0.1) return callback(new Error('ETIMEOUT'))
 
@@ -33,6 +33,14 @@ const model = teardux<Item>(DEFAULT_ITEM, {
       })
     }, 100)
   }
+})
+
+// ...
+import { init } from '@rematch/core'
+
+// rematch initialization
+const rematch = init({
+	todo: todoModel
 })
 
 // ...
