@@ -45,16 +45,22 @@ const rematch = init({
 
 // ...
 
-function mapState (state) {
+function mapStateToProps (state) {
+  const { error, loading, success, item } = state.todo
+  const { title, complete } = item
+
   return {
-    error: state.todo.error,
-    loading: state.todo.loading,
-    success: state.todo.success,
-    item: state.todo.result
+    error,
+    loading,
+    success,
+    item: {
+      title,
+      complete
+    }
   }
 }
 
-function mapDispatch (dispatch) {
+function mapDispatchToProps (dispatch) {
   fetchItem: async (itemId) {
     await dispatch.todo.get(itemId)
   }
