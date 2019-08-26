@@ -1,3 +1,5 @@
+# DEPRECATED: Do not use
+
 # teardux
 [Redux](https://github.com/reduxjs/redux), using [`rematch`](https://github.com/rematch/rematch),  *hopefully* without the tears.
 
